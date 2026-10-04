@@ -1,98 +1,48 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from 'expo-router';
+import { Pressable, View } from 'react-native';
+import ThemedLogo from '../../components/ThemedLogo';
+import ThemedText from '../../components/ThemedText';
+import ThemedView from '../../components/ThemedView';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Home() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ThemedView safe className="flex-1 px-6">
+      <View className="flex-1 justify-center">
+        <View className="items-center gap-6">
+          <View className="h-40 w-full max-w-sm items-center justify-center overflow-hidden rounded-lg px-4">
+            <ThemedLogo accessibilityLabel="Fila logo" />
+          </View>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+          <View className="w-full max-w-sm gap-3">
+            <ThemedText title className="text-center text-3xl font-bold">
+              Build your reading shelf
+            </ThemedText>
+            <ThemedText className="text-center text-base leading-6">
+              Track books, save notes, and keep your next great read close.
+            </ThemedText>
+          </View>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
+          <View className="mt-4 w-full max-w-sm gap-3">
+            <Link href="/login" asChild>
+              <Pressable className="min-h-14 flex-row items-center justify-center gap-2 rounded-lg bg-violet-700 px-5 active:opacity-80">
+                <Ionicons name="log-in-outline" size={20} color="#fff" />
+                <ThemedText inverse className="text-base font-semibold text-white">
+                  Log in
+                </ThemedText>
+              </Pressable>
+            </Link>
+            <Link href="/register" asChild>
+              <Pressable className="min-h-14 flex-row items-center justify-center gap-2 rounded-lg bg-violet-700 px-5 active:opacity-80">
+                <Ionicons name="person-add-outline" size={20} color="#fff" />
+                <ThemedText inverse className="text-base font-semibold text-white">
+                  Create account
+                </ThemedText>
+              </Pressable>
+            </Link>
+          </View>
+        </View>
+      </View>
     </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
