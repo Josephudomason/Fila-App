@@ -8,7 +8,8 @@
     "scheme": "file",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.joedev.file"
     },
     "android": {
       "package": "com.joedev.file",
@@ -41,6 +42,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "9c5aa1db-4cea-4cde-a742-8dac27aa9d4e"
+      }
     }
   }
 }
